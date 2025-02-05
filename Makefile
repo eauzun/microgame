@@ -3,7 +3,7 @@ NAME := so_long
 CC := cc
 
 
-SOURCE := so_long.c
+SOURCE := so_long.c get_next_line.c get_next_line_utils.c
 LIBRARY := -Lminilibx-linux -lmlx -lX11 -lXext -lm
 MINILIBX := minilibx-linux/
 PRINTF := printf/libftprintf.a
@@ -21,5 +21,3 @@ fclean: clean
 		make clean -C $(MINILIBX)
 		make fclean -C printf
 		rm -rf $(NAME)
-
-
