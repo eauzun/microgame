@@ -1,23 +1,42 @@
-NAME := so_long
+NAME = so_long
 
-CC := cc
+CC = gcc
+
+CFLAGS = -Wall -Wextra -Werror
+
+MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
 
-SOURCE := so_long.c get_next_line.c get_next_line_utils.c key_activity.c exit.c process.c
-LIBRARY := -Lminilibx-linux -lmlx -lX11 -lXext -lm
-MINILIBX := minilibx-linux/
-PRINTF := printf/libftprintf.a
+SRC_DIR = src
 
-all:
-	make -C $(MINILIBX)
+INC_DIR = includes
 
-	$(CC)  $(SOURCE)  $(LIBRARY)  -o $(NAME) -g
+OBJ_DIR = obj
 
+
+SRCS = $(SRC_DIR)/so_long.c \
+       $(SRC_DIR)/map_parse.c \
+       $(SRC_DIR)/map_validate.c \
+       $(SRC_DIR)/game_init.c \
+       $(SRC_DIR)/game_render.c \
+       $(SRC_DIR)/game_move.c \
+       $(SRC_DIR)/game_utils.c \
+       $(SRC_DIR)/get_next_line.c \
+       $(SRC_DIR)/get_next_line_utils.c
+
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+all: $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^ $(MLXFLAGS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 clean:
-		make clean -C printf
-		make clean -C $(MINILIBX)
-
+	rm -rf $(OBJ_DIR)
+	
 fclean: clean
-		make clean -C $(MINILIBX)
-		make fclean -C printf
-		rm -rf $(NAME)
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
