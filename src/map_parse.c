@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 static int	remove_newline(char *line)
 {
@@ -53,7 +53,10 @@ int	map_parse(char *file_path, t_map *map)
 
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
+	{
+		free(map->grid);
 		return (-1);
+	}
 
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
@@ -63,6 +66,7 @@ int	map_parse(char *file_path, t_map *map)
 		i++;
 	}
 	map->grid[i] = NULL;
+	map->width = ft_strlen(map->grid[0]);
 	close(fd);
 
 	return (0);

@@ -95,5 +95,11 @@ char	*get_next_line(int fd)
 		return (0);
 	line = till_nl(all_line);
 	all_line = return_rest(all_line);
+	if (!line)
+	{
+		free(all_line);
+		all_line = NULL;
+	}
+	
 	return (line);
 }

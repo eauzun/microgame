@@ -1,4 +1,4 @@
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 int	check_file_extension(char *file_path)
 {
@@ -8,9 +8,9 @@ int	check_file_extension(char *file_path)
 	if (len < 4)
 		return (-1);
 	if (file_path[len - 4] != '.' ||
-		    file_path[len - 3] != 'b' ||
-		        file_path[len - 2] != 'e' ||
-		            file_path[len - 1] != 'r')
+		file_path[len - 3] != 'b' ||
+		file_path[len - 2] != 'e' ||
+		file_path[len - 1] != 'r')
 		return (-1);
 	return (0);
 }
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 	t_game	game;
 	int		fd;
 
+	ft_memset(&game, 0, sizeof(t_game));
 	if (argc != 2)
 	{
 		print_error("Invalid number of arguments");
@@ -50,15 +51,18 @@ int	main(int argc, char **argv)
 		print_error("Memory allocation failed");
 		return (1);
 	}
+	ft_memset(game.map, 0, sizeof(t_map));  // map struct'ını sıfırla
 	if (map_parse(argv[1], game.map) == -1 || map_validate(game.map) == -1)
 	{
 		free_map(game.map);
 		return (1);
 	}
-    game_init(&game);
+	game_init(&game);
 	game_render(&game);
 	mlx_key_hook(game.win, handle_keypress, &game);
 	mlx_hook(game.win, 17, 0, (void *)exit, 0);
 	mlx_loop(game.mlx);
+	free_game(&game);
+
 	return (0);
 }
