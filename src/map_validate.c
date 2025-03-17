@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-static int	check_map_rectangular(t_map *map)
+int	check_map_rectangular(t_map *map)
 {
 	int		i;
 	size_t	first_line_len;
@@ -19,7 +19,7 @@ static int	check_map_rectangular(t_map *map)
 	return (0);
 }
 
-static int	check_top_bottom_walls(t_map *map)
+int	check_top_bottom_walls(t_map *map)
 {
 	int	j;
 
@@ -34,7 +34,7 @@ static int	check_top_bottom_walls(t_map *map)
 	return (0);
 }
 
-static int	check_side_walls(t_map *map)
+int	check_side_walls(t_map *map)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ static int	check_side_walls(t_map *map)
 	return (0);
 }
 
-static int	count_map_elements(t_map *map)
+int	count_map_elements(t_map *map)
 {
 	int	i;
 	int	j;
@@ -86,25 +86,40 @@ static int	count_map_elements(t_map *map)
 
 int	map_validate(t_map *map)
 {
+	int	path_result;
+
 	if (check_map_rectangular(map) == -1)
 	{
-		write(2, "Error\nMap is not rectangular\n", 29);
+		print_error("Map is not rectangular");
 		return (-1);
 	}
 	if (check_top_bottom_walls(map) == -1)
 	{
-		write(2, "Error\nTop or bottom row is not surrounded by walls\n", 50);
+		print_error("Top or bottom row is not surrounded by walls");
 		return (-1);
 	}
 	if (check_side_walls(map) == -1)
 	{
-		write(2, "Error\nSide columns are not surrounded by walls\n", 46);
+		print_error("Side columns are not surrounded by walls");
 		return (-1);
 	}
 	if (count_map_elements(map) == -1)
 	{
-		write(2, "Error\nInvalid map elements\n", 27);
+		print_error("Invalid map elements");
 		return (-1);
 	}
+
+	path_result = check_path(map);
+	if (path_result == -2)
+	{
+		print_error("Cannot reach all collectibles");
+		return (-1);
+	}
+	if (path_result == -3)
+	{
+		print_error("Cannot reach exit");
+		return (-1);
+	}
+
 	return (0);
 }

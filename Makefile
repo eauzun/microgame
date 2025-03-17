@@ -22,7 +22,8 @@ SRCS = $(SRC_DIR)/so_long.c \
        $(SRC_DIR)/game_move.c \
        $(SRC_DIR)/game_utils.c \
        $(SRC_DIR)/get_next_line.c \
-       $(SRC_DIR)/get_next_line_utils.c 
+       $(SRC_DIR)/get_next_line_utils.c \
+       $(SRC_DIR)/flood_fill.c
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
