@@ -52,32 +52,25 @@ typedef struct s_game {
     int     moves;
 } t_game;
 
-// Get Next Line fonksiyonları
+
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
-
-// Utility fonksiyonları
 void	ft_putnbr(int n);
 void	print_error(char *message);
-
-// Harita işleme fonksiyonları
 int		map_parse(char *file_path, t_map *map);
 int		map_validate(t_map *map);
 void	free_map(t_map *map);
-
-// Oyun fonksiyonları
 void	game_init(t_game *game);
 void	game_render(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	move_player(t_game *game, int dx, int dy);
 void	set_player_image(t_game *game, int dx, int dy);
-
-// Bellek yönetimi fonksiyonları
 void	free_game_images(t_game *game);
 void	free_game(t_game *game);
 size_t	ft_strnl(char *s);
 void	*ft_memset(void *ptr, int c, size_t num);
 void	free_game_images(t_game *game);
+int exit_game(t_game *game);
 #endif

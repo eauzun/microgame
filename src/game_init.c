@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-void	init_player_images(t_game *game, int *width, int *height)
+void	init_images(t_game *game, int *width, int *height)
 {
 	game->player_down_img = mlx_xpm_file_to_image(game->mlx, 
 		"textures/player_down.xpm", width, height);
@@ -10,6 +10,14 @@ void	init_player_images(t_game *game, int *width, int *height)
 		"textures/player_left.xpm", width, height);
 	game->player_right_img = mlx_xpm_file_to_image(game->mlx, 
 		"textures/player_right.xpm", width, height);
+	game->wall_img = mlx_xpm_file_to_image(game->mlx, 
+		"textures/wall.xpm", width, height);
+	game->floor_img = mlx_xpm_file_to_image(game->mlx, 
+		"textures/floor.xpm", width, height);
+	game->exit_img = mlx_xpm_file_to_image(game->mlx, 
+		"textures/exit.xpm", width, height);
+	game->collectible_img = mlx_xpm_file_to_image(game->mlx, 
+		"textures/collectible.xpm", width, height);
 }
 
 int	check_image_load(t_game *game)
@@ -47,18 +55,16 @@ void	game_init(t_game *game)
 	}
 	width = TILE_SIZE;
 	height = TILE_SIZE;
-	init_player_images(game, &width, &height);
-	game->wall_img = mlx_xpm_file_to_image(game->mlx, 
-		"textures/wall.xpm", &width, &height);
-	game->floor_img = mlx_xpm_file_to_image(game->mlx, 
-		"textures/floor.xpm", &width, &height);
-	game->exit_img = mlx_xpm_file_to_image(game->mlx, 
-		"textures/exit.xpm", &width, &height);
-	game->collectible_img = mlx_xpm_file_to_image(game->mlx, 
-		"textures/collectible.xpm", &width, &height);
+	init_images(game, &width, &height);
 	if (!check_image_load(game))
 		exit(1);
 	game->player_direction = PLAYER_DOWN;
 	game->player_current_img = game->player_down_img;
 	game->moves = 0;
+}
+
+int	exit_game(t_game *game)
+{
+	free_game(game);
+	exit(0);
 }

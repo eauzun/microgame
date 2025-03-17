@@ -64,10 +64,7 @@ void	move_player(t_game *game, int dx, int dy)
 int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == ESC_KEY)
-	{
-		mlx_destroy_window(game->mlx, game->win);
-		exit(0);
-	}
+		exit_game(game);
 	if (keycode == W_KEY)
 		move_player(game, 0, -1);
 	else if (keycode == A_KEY)
