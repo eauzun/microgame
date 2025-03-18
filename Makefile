@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/18 22:30:46 by emuzun            #+#    #+#              #
+#    Updated: 2025/03/18 23:12:36 by emuzun           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = so_long
 
 CC = gcc
@@ -23,7 +35,8 @@ SRCS = $(SRC_DIR)/so_long.c \
        $(SRC_DIR)/game_utils.c \
        $(SRC_DIR)/get_next_line.c \
        $(SRC_DIR)/get_next_line_utils.c \
-       $(SRC_DIR)/flood_fill.c
+       $(SRC_DIR)/flood_fill.c \
+       $(SRC_DIR)/game_utils2.c
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)

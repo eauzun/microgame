@@ -1,4 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:13 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:55:37 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
+
+int	check_file_extension(char *file_path)
+{
+	int	len;
+
+	len = ft_strlen(file_path);
+	if (len < 4)
+		return (-1);
+	if (file_path[len - 4] != '.'
+		|| file_path[len - 3] != 'b'
+		|| file_path[len - 2] != 'e'
+		|| file_path[len - 1] != 'r')
+		return (-1);
+	return (0);
+}
 
 static int	remove_newline(char *line)
 {
@@ -17,22 +44,6 @@ static int	remove_newline(char *line)
 	return (0);
 }
 
-static int	open_file(char *file_path)
-{
-	int	fd;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	return (fd);
-}
-
-static void	close_file(int fd)
-{
-	if (fd != -1)
-		close(fd);
-}
-
 static int	count_lines(char *file_path)
 {
 	int		fd;
@@ -43,11 +54,12 @@ static int	count_lines(char *file_path)
 	fd = open_file(file_path);
 	if (fd == -1)
 		return (-1);
-
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		lines++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close_file(fd);
 	return (lines);
@@ -59,11 +71,13 @@ static int	read_map_lines(int fd, t_map *map)
 	char	*line;
 
 	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		remove_newline(line);
 		map->grid[i] = line;
 		i++;
+		line = get_next_line(fd);
 	}
 	map->grid[i] = NULL;
 	return (0);
@@ -76,7 +90,6 @@ int	map_parse(char *file_path, t_map *map)
 	map->height = count_lines(file_path);
 	if (map->height <= 0)
 		return (-1);
-
 	map->grid = malloc(sizeof(char *) * (map->height + 1));
 	if (!map->grid)
 		return (-1);

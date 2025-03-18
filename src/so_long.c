@@ -1,28 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:18 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:55:11 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
-int	check_file_extension(char *file_path)
-{
-	int	len;
-
-	len = ft_strlen(file_path);
-	if (len < 4)
-		return (-1);
-	if (file_path[len - 4] != '.' ||
-		file_path[len - 3] != 'b' ||
-		file_path[len - 2] != 'e' ||
-		file_path[len - 1] != 'r')
-		return (-1);
-	return (0);
-}
-
-void	print_error(char *message)
-{
-	write(2, "Error\n", 6);
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
-}
-
-int	check_arguments(int argc)
+static int	check_arguments(int argc)
 {
 	if (argc != 2)
 	{
@@ -32,7 +22,7 @@ int	check_arguments(int argc)
 	return (0);
 }
 
-int	check_map_file(char *file_path)
+static int	check_map_file(char *file_path)
 {
 	int	fd;
 
@@ -51,7 +41,7 @@ int	check_map_file(char *file_path)
 	return (0);
 }
 
-int	allocate_map(t_game *game)
+static int	allocate_map(t_game *game)
 {
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
@@ -63,7 +53,7 @@ int	allocate_map(t_game *game)
 	return (0);
 }
 
-int	parse_and_validate_map(t_game *game, char *file_path)
+static int	parse_and_validate_map(t_game *game, char *file_path)
 {
 	if (map_parse(file_path, game->map) == -1 || map_validate(game->map) == -1)
 	{

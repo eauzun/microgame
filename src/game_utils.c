@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:06 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:04:18 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 void	free_map(t_map *map)
@@ -5,8 +17,7 @@ void	free_map(t_map *map)
 	int	i;
 
 	if (!map)
-		return;
-
+		return ;
 	if (map->grid)
 	{
 		i = 0;
@@ -58,23 +69,19 @@ void	free_game_images(t_game *game)
 void	free_game(t_game *game)
 {
 	if (!game)
-		return;
-
+		return ;
 	free_game_images(game);
-
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
 		game->win = NULL;
 	}
-
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 		game->mlx = NULL;
 	}
-
 	if (game->map)
 	{
 		free_map(game->map);

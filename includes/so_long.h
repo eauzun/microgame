@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:38 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:47:54 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -81,4 +93,7 @@ char *get_next_line(int fd);
 char *ft_strjoin(char *s1, char *s2);
 void	*ft_memset(void *ptr, int c, size_t num);
 size_t	ft_strnl(char *s);
+int	open_file(char *file_path);
+void	close_file(int fd);
+void	print_error(char *message);
 #endif

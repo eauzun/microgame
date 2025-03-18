@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:11 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:04:52 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 char	*get_all_line(int fd, char *all_line)
@@ -99,7 +111,6 @@ char	*get_next_line(int fd)
 	{
 		free(all_line);
 		all_line = NULL;
-	}
-	
+	}	
 	return (line);
 }

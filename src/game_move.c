@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_move.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 22:30:01 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/18 23:01:14 by emuzun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 static int	can_move(t_game *game, int new_x, int new_y)
@@ -48,7 +60,7 @@ void	move_player(t_game *game, int dx, int dy)
 	new_y = game->map->player_y + dy;
 	set_player_image(game, dx, dy);
 	if (!can_move(game, new_x, new_y))
-		return;
+		return ;
 	collect_item(game, new_x, new_y);
 	game->map->grid[game->map->player_y][game->map->player_x] = '0';
 	game->map->grid[new_y][new_x] = 'P';
