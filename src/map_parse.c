@@ -80,21 +80,18 @@ int	map_parse(char *file_path, t_map *map)
 	map->grid = malloc(sizeof(char *) * (map->height + 1));
 	if (!map->grid)
 		return (-1);
-
 	fd = open_file(file_path);
 	if (fd == -1)
 	{
 		free(map->grid);
 		return (-1);
 	}
-
 	if (read_map_lines(fd, map) == -1)
 	{
 		free(map->grid);
 		close_file(fd);
 		return (-1);
 	}
-
 	map->width = ft_strlen(map->grid[0]);
 	close_file(fd);
 	return (0);

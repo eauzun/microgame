@@ -79,6 +79,6 @@ char *till_nl(char *all_line);
 char *return_rest(char *all_line);
 char *get_next_line(int fd);
 char *ft_strjoin(char *s1, char *s2);
-size_t  ft_strnl(char *s);
-
+void	*ft_memset(void *ptr, int c, size_t num);
+size_t	ft_strnl(char *s);
 #endif
