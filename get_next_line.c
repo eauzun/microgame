@@ -6,11 +6,11 @@
 /*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:30:11 by emuzun            #+#    #+#             */
-/*   Updated: 2025/03/18 23:04:52 by emuzun           ###   ########.fr       */
+/*   Updated: 2025/03/19 19:39:32 by emuzun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "includes/get_next_line.h"
 
 char	*get_all_line(int fd, char *all_line)
 {

@@ -6,48 +6,41 @@
 #    By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/18 22:30:46 by emuzun            #+#    #+#              #
-#    Updated: 2025/03/18 23:12:36 by emuzun           ###   ########.fr        #
+#    Updated: 2025/03/21 10:24:49 by emuzun           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 CC = gcc
-
 CFLAGS = -Wall -Wextra -Werror
-
 MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
+SRCS = so_long.c \
+       map_parse.c \
+       map_validate.c \
+       game_init.c \
+       game_render.c \
+       game_move.c \
+       game_utils.c \
+       get_next_line.c \
+       get_next_line_utils.c \
+       flood_fill.c \
+       game_utils2.c
 
-SRC_DIR = src
+OBJS = $(SRCS:.c=.o)
 
-INC_DIR = includes
-
-OBJ_DIR = obj
-
-
-SRCS = $(SRC_DIR)/so_long.c \
-       $(SRC_DIR)/map_parse.c \
-       $(SRC_DIR)/map_validate.c \
-       $(SRC_DIR)/game_init.c \
-       $(SRC_DIR)/game_render.c \
-       $(SRC_DIR)/game_move.c \
-       $(SRC_DIR)/game_utils.c \
-       $(SRC_DIR)/get_next_line.c \
-       $(SRC_DIR)/get_next_line_utils.c \
-       $(SRC_DIR)/flood_fill.c \
-       $(SRC_DIR)/game_utils2.c
-
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
+
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(MLXFLAGS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -Iincludes -c $< -o $@
+
 clean:
-	rm -rf $(OBJ_DIR)
-	
+	rm -f $(OBJS)
+
 fclean: clean
 	rm -f $(NAME)
 

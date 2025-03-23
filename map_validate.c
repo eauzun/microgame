@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 22:30:16 by emuzun            #+#    #+#             */
-/*   Updated: 2025/03/18 23:53:43 by emuzun           ###   ########.fr       */
+/*   Created: 2025/03/19 20:20:09 by emuzun            #+#    #+#             */
+/*   Updated: 2025/03/21 10:39:20 by emuzun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,9 @@ static int	count_map_elements_count(t_map *map)
 		while (++j < map->width)
 		{
 			if (map->grid[i][j] == 'P')
-			{
-				map->player_x = j;
-				map->player_y = i;
-			}
+				set_player_position(map, j, i);
 			else if (map->grid[i][j] == 'E')
-			{
-				map->exit_x = j;
-				map->exit_y = i;
-			}
+				set_exit_position(map, j, i);
 			else if (map->grid[i][j] == 'C')
 				map->collectibles++;
 		}
@@ -48,13 +42,13 @@ static int	count_map_elements_validate(t_map *map)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
 	players = 0;
 	exits = 0;
-	while (i++ < map->height)
+	i = -1;
+	while (++i < map->height)
 	{
-		while (j++ < map->width)
+		j = -1;
+		while (++j < map->width)
 		{
 			if (map->grid[i][j] == 'P')
 				players++;
@@ -79,46 +73,51 @@ int	count_map_elements(t_map *map)
 	return (-1);
 }
 
-int	check_map_walls_and_elements(t_map *map)
+int	check_map_walls_and_elements(t_map *map, t_game *game)
 {
 	if (check_map_rectangular(map) == -1)
 	{
-		print_error("Map is not rectangular");
+		print_error("Map is not rectangular", game);
 		return (-1);
 	}
 	if (check_top_bottom_walls(map) == -1)
 	{
-		print_error("Top or bottom row is not surrounded by walls");
+		print_error("Top or bottom row is not surrounded by walls game", game);
 		return (-1);
 	}
 	if (check_side_walls(map) == -1)
 	{
-		print_error("Side columns are not surrounded by walls");
+		print_error("Side columns are not surrounded by walls", game);
 		return (-1);
 	}
-	if (count_map_elements(map) == -1)
+	if (count_map_elements(map) == -1 || validate_map_chars(map->grid) == -1)
 	{
-		print_error("Invalid map elements");
+		print_error("Invalid map elements", game);
 		return (-1);
 	}
 	return (0);
 }
 
-int	map_validate(t_map *map)
+int	map_validate(t_map *map, t_game *game)
 {
 	int	path_result;
 
-	if (check_map_walls_and_elements(map) == -1)
+	if (map->width > 59 || map->height > 32)
+	{
+		print_error("Map resolution is not compatible.", game);
+		return (-1);
+	}
+	if (check_map_walls_and_elements(map, game) == -1)
 		return (-1);
 	path_result = check_path(map);
 	if (path_result == -2)
 	{
-		print_error("Cannot reach all collectibles");
+		print_error("Cannot reach all collectibles", game);
 		return (-1);
 	}
 	if (path_result == -3)
 	{
-		print_error("Cannot reach exit");
+		print_error("Cannot reach exit", game);
 		return (-1);
 	}
 	return (0);

@@ -6,11 +6,11 @@
 /*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:30:08 by emuzun            #+#    #+#             */
-/*   Updated: 2025/03/18 23:05:08 by emuzun           ###   ########.fr       */
+/*   Updated: 2025/03/19 19:39:33 by emuzun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "includes/get_next_line.h"
 
 size_t	ft_strnl(char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: emuzun <emuzun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:29:58 by emuzun            #+#    #+#             */
-/*   Updated: 2025/03/18 22:59:37 by emuzun           ###   ########.fr       */
+/*   Updated: 2025/03/21 10:28:01 by emuzun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_image_load(t_game *game)
 		|| !game->wall_img || !game->floor_img
 		|| !game->exit_img || !game->collectible_img)
 	{
-		print_error("Failed to load game textures");
+		print_error("Failed to load game textures", game);
 		return (0);
 	}
 	return (1);
@@ -52,7 +52,7 @@ void	init_window(t_game *game)
 			"So Long");
 	if (!game->win)
 	{
-		print_error("Window creation failed");
+		print_error("Window creation failed", game);
 		exit(1);
 	}
 }
@@ -65,7 +65,7 @@ void	game_init(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
-		print_error("MLX initialization failed");
+		print_error("MLX initialization failed", game);
 		exit(1);
 	}
 	init_window(game);
@@ -74,7 +74,6 @@ void	game_init(t_game *game)
 	init_images(game, &width, &height);
 	if (!check_image_load(game))
 		exit(1);
-	game->player_direction = PLAYER_DOWN;
 	game->player_current_img = game->player_down_img;
 	game->moves = 0;
 }
